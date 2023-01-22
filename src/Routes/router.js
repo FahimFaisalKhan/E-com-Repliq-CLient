@@ -16,6 +16,7 @@ import Home from "../Pages/Home/Home";
 import ProductDetail from "../Pages/ProductDetail/ProductDetail";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,7 +29,14 @@ export const router = createBrowserRouter(
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Route>
-      <Route path="/dashboard" element={<DashboardLayout />}>
+      <Route
+        path="/dashboard"
+        element={
+          <AdminRoute>
+            <DashboardLayout />
+          </AdminRoute>
+        }
+      >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/customerlist" element={<CustomerList />} />
         <Route path="/dashboard/addcustomer" element={<AddCustomer />} />

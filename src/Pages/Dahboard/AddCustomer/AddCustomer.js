@@ -16,7 +16,10 @@ const AddCustomer = () => {
     await addUser(data);
   };
   return (
-    <div className="w-full text-primary">
+    <div className="w-full text-primary  sm:px-10">
+      <h2 className="text-center text-3xl font-semibold mt-8 mb-5">
+        Add a customer
+      </h2>
       <div className="hero min-h-[80vh] bg-tertiary-light ">
         <div className="hero-content flex flex-col  items-center   w-full sm:items-start xl:items-center relative ">
           <div className="card flex-shrink-0 w-full  shadow-2xl bg-tertiary-dark py-5  rounded-sm">
@@ -127,7 +130,7 @@ const AddCustomer = () => {
                   type="submit"
                   className="btn bg-primary-dark border-primary-dark relative text-base-100"
                 >
-                  Add
+                  Add Customer
                 </button>
               </div>
             </form>

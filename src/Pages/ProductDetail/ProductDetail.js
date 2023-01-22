@@ -28,7 +28,7 @@ const ProductDetail = () => {
     return <Spinner />;
   }
   return (
-    <div className="min-h-[80vh] flex flex-col my-12 gap-12 text-primary">
+    <div className="min-h-[80vh] flex flex-col my-12 justify-center gap-12 text-primary">
       <div className="w-full text-center text-primary-dark font-bold uppercase text-2xl">
         {productDetailData.title}
       </div>

@@ -27,9 +27,12 @@ const CartCard = ({ i, updating }) => {
   }, [qty, i._id]);
 
   return (
-    <div key={i._id} className="border-2 border-secondary-light     flex p-3">
+    <div
+      key={i._id}
+      className="border-2 border-secondary-light  items-center flex-col sm:flex-row gap-x-5 lg:gap-x-[auto]   flex  p-3"
+    >
       <Avatar src={i.image} />
-      <div className="flex grow justify-around items-center">
+      <div className="flex flex-col lg:flex-row items-start grow justify-around  gap-y-2 lg:gap-y-[auto] lg:items-center">
         <h2 className="w-[15%] max-w-[15%]">{i.title}</h2>
         <p>In Stock</p>
         <div className="flex ">

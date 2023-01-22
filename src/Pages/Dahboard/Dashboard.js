@@ -2,7 +2,7 @@ import React from "react";
 
 const Dashboard = () => {
   return (
-    <div className="container mx-auto my-14 text-primary-dark">
+    <div className="container mx-auto my-14 text-primary-dark px-5 sm:px-10">
       <h1 className="text-3xl  border-b-2 border-tertiary-dark">
         Welcome Admin
       </h1>

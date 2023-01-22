@@ -22,7 +22,7 @@ const Checkout = () => {
   return (
     <div className="flex justify-center items-center">
       <div className="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
-        <div className="flex flex-col justify-start items-start w-full space-y-9">
+        <div className="flex flex-col justify-start  items-start w-full space-y-9">
           <div className="flex flex-col justify-between  items-start space-y-2 w-full">
             <button className="flex flex-row items-center text-gray-600 hover:text-gray-500 space-x-1">
               <svg
@@ -57,11 +57,11 @@ const Checkout = () => {
               </svg>
               <p className="text-sm leading-none">Back</p>
             </button>
-            <div className="flex  justify-between items-center w-full  space-y-4">
+            <div className="flex flex-col lg:flex-row  justify-between items-center w-full  space-y-4">
               <p className="text-xl md:text-3xl font-bold leading-normal text-primary-dark">
                 {title}
               </p>
-              <div className="mr-96">
+              <div className="2xl:mr-96">
                 <p className="text-xl font-semibold leading-none text-gray-600">
                   Number of items: {quantity}
                 </p>
@@ -113,59 +113,59 @@ const Checkout = () => {
                 <hr className="border w-full" />
               </div>
 
-              <div className="mt-8">
+              <div className="mt-8 flex justify-center">
                 <input
-                  className="border border-gray-300 p-4 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600"
+                  className="border border-gray-300 p-4 rounded w-full max-w-[100vw] text-base leading-4 placeholder-gray-600 text-gray-600"
                   type="email"
                   placeholder="Email"
                 />
               </div>
 
-              <label className="mt-8 text-base leading-4 text-primary-dark">
-                Card details
+              <label className="mt-8 text-base flex justify-center lg:justify-start  text-primary-dark">
+                <p className="max-w-[100vw]">Card details</p>
               </label>
               <div className="mt-2 flex-col">
-                <div>
+                <div className="flex justify-center">
                   <input
-                    className="border rounded-tl rounded-tr border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
+                    className="border rounded-tl rounded-tr border-gray-300 p-4 w-full max-w-[100vw] text-base leading-4 placeholder-gray-600 text-gray-600"
                     type="email"
                     placeholder="0000 1234 6549 15151"
                   />
                 </div>
-                <div className="flex-row flex">
+                <div className="flex-row flex justify-center">
                   <input
-                    className="border rounded-bl border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
+                    className="border rounded-bl max-w-[50vw] border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
                     type="email"
                     placeholder="MM/YY"
                   />
                   <input
-                    className="border rounded-br border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
+                    className="border rounded-br max-w-[50vw] border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
                     type="email"
                     placeholder="CVC"
                   />
                 </div>
               </div>
 
-              <label className="mt-8 text-base leading-4 text-primary-dark">
-                Name on card
+              <label className="mt-8 text-base leading-4 flex justify-center lg:justify-start text-primary-dark">
+                <p>Name on card</p>
               </label>
               <div className="mt-2 flex-col">
-                <div>
+                <div className="flex justify-center">
                   <input
-                    className="border rounded border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
+                    className="border rounded max-w-[100vw] border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
                     type="email"
                     placeholder="Name on card"
                   />
                 </div>
               </div>
 
-              <label className="mt-8 text-base leading-4 text-primary-dark">
-                Country or region
+              <label className="mt-8 text-base leading-4 text-primary-dark flex justify-center lg:justify-start">
+                <p>Country or region</p>
               </label>
               <div className="mt-2 flex-col">
-                <div className="relative">
+                <div className="relative flex justify-center">
                   <button
-                    className="text-left border rounded-tr rounded-tl border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600 bg-white"
+                    className="text-left border rounded-tr rounded-tl border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600 bg-white max-w-[100vw]"
                     type="email"
                   >
                     {country}
@@ -173,7 +173,7 @@ const Checkout = () => {
                   <svg
                     onClick={() => setMenu(!menu)}
                     className={
-                      "transform  cursor-pointer absolute top-4 right-4 " +
+                      "transform  cursor-pointer absolute top-4 right-20 sm:right-4 " +
                       (menu ? "rotate-180" : "")
                     }
                     width="16"
@@ -191,14 +191,14 @@ const Checkout = () => {
                   </svg>
                   <div
                     className={
-                      "mt-1 absolute z-10 w-full flex bg-gray-50 justify-start flex-col text-gray-600 " +
+                      "mt-1 absolute z-10 w-full flex bg-gray-50 sm:justify-start flex-col text-gray-600 max-w-[100vw] justify-center " +
                       (menu ? "block" : "hidden")
                     }
                   >
                     {countries.map((country) => (
                       <div
                         key={country}
-                        className="cursor-pointer hover:bg-gray-800 hover:text-white px-4 py-2"
+                        className="cursor-pointer  hover:bg-gray-800 hover:text-white px-4 py-2"
                         onClick={changeText}
                       >
                         {country}
@@ -206,16 +206,18 @@ const Checkout = () => {
                     ))}
                   </div>
                 </div>
-                <input
-                  className="border rounded-bl rounded-br border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                  type="text"
-                  placeholder="ZIP"
-                />
+                <div className="flex justify-center">
+                  <input
+                    className="max-w-[100vw] border rounded-bl rounded-br border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
+                    type="text"
+                    placeholder="ZIP"
+                  />
+                </div>
               </div>
 
               <button className="mt-8 border border-transparent hover:border-gray-300 bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded w-full">
                 <div>
-                  <p className="text-base leading-4">Pay $54652</p>
+                  <p className="text-base leading-4">Pay ${totalPrice}</p>
                 </div>
               </button>
             </div>

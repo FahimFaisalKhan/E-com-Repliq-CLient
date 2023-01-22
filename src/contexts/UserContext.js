@@ -3,7 +3,7 @@ import React, { createContext, useCallback, useEffect, useState } from "react";
 
 export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
-  const [userLoading, setUserLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(true);
   const [loggedin, setLoggedin] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const fetch = useCallback(async (uid) => {
@@ -17,7 +17,6 @@ const UserContextProvider = ({ children }) => {
         }
       );
 
-      console.log(data);
       const { password, ...rest } = data.user;
       setCurrentUser({ ...rest });
       setLoggedin(true);

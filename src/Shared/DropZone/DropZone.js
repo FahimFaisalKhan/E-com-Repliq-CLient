@@ -23,7 +23,7 @@ const DropZone = ({ file, setFile, size }) => {
   const thumbs = file && (
     <div key={file.name}>
       <div className="flex justify-center mt-5 ">
-        <div className="w-44 relative">
+        <div className=" w-96 relative">
           <img
             src={file.preview}
             alt=""
@@ -35,6 +35,7 @@ const DropZone = ({ file, setFile, size }) => {
           />
           <Button
             size="sm"
+            color="primary"
             shape="circle"
             className="absolute -top-2 -right-2"
             onClick={() => setFile("")}
@@ -53,13 +54,13 @@ const DropZone = ({ file, setFile, size }) => {
   }, [file?.preview, file]);
 
   return (
-    <section className={`container w-${size && size}`}>
+    <section className={`container  w-${size}`}>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
 
         {!file && (
-          <div className="flex justify-center border border-dashed py-5">
-            <MdAddPhotoAlternate size={45} color={"#0d47a1"} />
+          <div className="flex justify-center border border-dashed border-secondary py-5">
+            <MdAddPhotoAlternate size={60} color={"#040916C"} />
           </div>
         )}
       </div>

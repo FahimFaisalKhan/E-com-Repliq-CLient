@@ -6,7 +6,7 @@ import { ProductContext } from "../../../contexts/ProductsContext";
 const ProductList = () => {
   const { products } = useContext(ProductContext);
   return (
-    <div className="overflow-x-auto container mx-auto my-12">
+    <div className="overflow-x-auto container mx-auto my-12  sm:px-10">
       <table className="table w-full rounded-none bg-secondary">
         <thead>
           <tr>
@@ -36,7 +36,9 @@ const ProductList = () => {
                 <Link to={`/detail/${p._id}`}>{p.brand}</Link>
               </td>
               <td>
-                <Link to={`/detail/${p._id}`}>{p.rating.toFixed(1)}/5</Link>
+                <Link to={`/detail/${p._id}`}>
+                  {p.rating ? `${p.rating.toFixed(1)}/5` : "No ratings yet"}
+                </Link>
               </td>
               <td>
                 <Link to={`/detail/${p._id}`}>{p.stock}</Link>
@@ -45,7 +47,11 @@ const ProductList = () => {
                 <Link to={`/detail/${p._id}`}>${p.price}</Link>
               </td>
               <td>
-                <Link to={`/detail/${p._id}`}>{p.discountPercentage}%</Link>
+                <Link to={`/detail/${p._id}`}>
+                  {p.discountPercentage
+                    ? `${p.discountPercentage}%`
+                    : "No discount"}
+                </Link>
               </td>
             </tr>
           ))}

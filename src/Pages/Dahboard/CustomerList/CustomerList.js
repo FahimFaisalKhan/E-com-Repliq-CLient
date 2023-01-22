@@ -22,7 +22,7 @@ const CustomerList = () => {
     return <Spinner />;
   }
   return (
-    <div className="overflow-x-auto container mx-auto my-12">
+    <div className="overflow-x-auto container mx-auto my-12  sm:px-10">
       <table className="table w-full rounded-none bg-secondary">
         <thead>
           <tr>
