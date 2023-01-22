@@ -17,7 +17,7 @@ const ProductsContextProvider = ({ children }) => {
       console.log("lalala", currentUser._id);
       if (currentUser._id) {
         const { data } = await axios.get(
-          `http://localhost:5000/cart/get-items?uid=${currentUser?._id}`
+          `https://e-com-repliq-fahimfaisalkhan.vercel.app/cart/get-items?uid=${currentUser?._id}`
         );
 
         setCartItems([...data]);
@@ -33,7 +33,9 @@ const ProductsContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["products", "all"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/products/all");
+      const { data } = await axios.get(
+        "https://e-com-repliq-fahimfaisalkhan.vercel.app/products/all"
+      );
 
       return data;
     },
@@ -47,7 +49,7 @@ const ProductsContextProvider = ({ children }) => {
     queryKey: ["products", "categories"],
     queryFn: async () => {
       const { data } = await axios.get(
-        "http://localhost:5000/products/categories"
+        "https://e-com-repliq-fahimfaisalkhan.vercel.app/products/categories"
       );
 
       return data;
@@ -56,7 +58,7 @@ const ProductsContextProvider = ({ children }) => {
 
   const compareAndUpdate = async (localCartItems) => {
     const { data } = await axios.put(
-      "http://localhost:5000/cart/compare-update",
+      "https://e-com-repliq-fahimfaisalkhan.vercel.app/cart/compare-update",
       { data: localCartItems }
     );
     console.log(data);
@@ -78,7 +80,7 @@ const ProductsContextProvider = ({ children }) => {
     console.log("tt", existingProduct);
     try {
       const { data } = await axios.put(
-        "http://localhost:5000/cart/increase-quantity",
+        "https://e-com-repliq-fahimfaisalkhan.vercel.app/cart/increase-quantity",
         {
           _id: existingProduct._id,
           quantity: existingProduct.quantity,
@@ -105,7 +107,7 @@ const ProductsContextProvider = ({ children }) => {
       const productToAdd = { quantity, ...product };
       try {
         const { data } = await axios.post(
-          "http://localhost:5000/cart/add-item",
+          "https://e-com-repliq-fahimfaisalkhan.vercel.app/cart/add-item",
           {
             data: productToAdd,
           }
@@ -129,7 +131,7 @@ const ProductsContextProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartAfterDelition));
 
     const { data } = await axios.delete(
-      `http://localhost:5000/cart/delete-item?id=${id}`
+      `https://e-com-repliq-fahimfaisalkhan.vercel.app/cart/delete-item?id=${id}`
     );
   };
 

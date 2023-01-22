@@ -22,7 +22,7 @@ const ProductDetail = () => {
     queryKey: [],
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/products/single?id=${id}`
+        `https://e-com-repliq-fahimfaisalkhan.vercel.app/products/single?id=${id}`
       );
       console.log(data);
       return data;

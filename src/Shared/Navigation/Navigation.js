@@ -8,8 +8,7 @@ import { ProductContext } from "../../contexts/ProductsContext";
 import { UserContext } from "../../contexts/UserContext";
 const Navigation = () => {
   const { cartItems, setCartItems } = useContext(ProductContext);
-  const { signoutUser, loggedin, currentUser, userLoading } =
-    useContext(UserContext);
+  const { signoutUser, loggedin, currentUser } = useContext(UserContext);
   const navigate = useNavigate();
   return (
     <div className=" bg-primary fixed w-full z-50">
@@ -37,7 +36,9 @@ const Navigation = () => {
               </svg>
             </label>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <Link to={"/"} className="btn btn-ghost normal-case text-xl">
+            Ok-Buy
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -69,9 +70,6 @@ const Navigation = () => {
                 >
                   <Link>Sign out</Link>
                 </li>
-                <li>
-                  <Link>{currentUser.name}</Link>
-                </li>
               </>
             )}
             <li>
@@ -80,6 +78,9 @@ const Navigation = () => {
           </ul>
         </div>
         <div className="navbar-end gap-x-5">
+          <p>
+            <Link>{currentUser?.name}</Link>
+          </p>
           <Link className="relative" to={"/cart"}>
             <FaShoppingCart size={25} />
             {cartItems?.length > 0 && (
@@ -88,12 +89,6 @@ const Navigation = () => {
               </span>
             )}
           </Link>
-
-          <Avatar
-            size={"xs"}
-            shape="circle"
-            src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-          />
         </div>
       </div>
     </div>

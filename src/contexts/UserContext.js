@@ -12,7 +12,7 @@ const UserContextProvider = ({ children }) => {
     setUserLoading(true);
     try {
       const { data } = await axios.put(
-        "http://localhost:5000/user/update-user",
+        "https://e-com-repliq-fahimfaisalkhan.vercel.app/user/update-user",
         {
           uid: uid,
           loggedin: true,
@@ -39,7 +39,10 @@ const UserContextProvider = ({ children }) => {
     return () => cleacup();
   }, []);
   const signupUser = async (data) => {
-    const res = await axios.post("http://localhost:5000/user/signup", data);
+    const res = await axios.post(
+      "https://e-com-repliq-fahimfaisalkhan.vercel.app/user/signup",
+      data
+    );
     console.log(res.data);
 
     if (res.data.success) {
@@ -57,15 +60,21 @@ const UserContextProvider = ({ children }) => {
   };
 
   const addUser = async (data) => {
-    const res = await axios.post("http://localhost:5000/user/signup", data);
+    const res = await axios.post(
+      "https://e-com-repliq-fahimfaisalkhan.vercel.app/user/signup",
+      data
+    );
     console.log(res.data);
   };
 
   const signinUser = async (email, password) => {
-    const { data } = await axios.post("http://localhost:5000/user/login", {
-      email,
-      password,
-    });
+    const { data } = await axios.post(
+      "https://e-com-repliq-fahimfaisalkhan.vercel.app/user/login",
+      {
+        email,
+        password,
+      }
+    );
     if (data.success) {
       localStorage.setItem("accessToken", data.token);
       localStorage.setItem("uid", data.user._id);
@@ -82,9 +91,12 @@ const UserContextProvider = ({ children }) => {
 
   const signoutUser = async (uid) => {
     setUserLoading(true);
-    const { data } = await axios.post("http://localhost:5000/user/signout", {
-      uid,
-    });
+    const { data } = await axios.post(
+      "https://e-com-repliq-fahimfaisalkhan.vercel.app/user/signout",
+      {
+        uid,
+      }
+    );
 
     console.log(data);
     if (data.success) {

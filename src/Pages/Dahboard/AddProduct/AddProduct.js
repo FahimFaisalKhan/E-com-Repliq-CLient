@@ -61,7 +61,7 @@ const AddProduct = () => {
     }
     try {
       const { data: resData } = await axios.post(
-        "http://localhost:5000/products/add",
+        "https://e-com-repliq-fahimfaisalkhan.vercel.app/products/add",
         {
           data: { ...data, thumbnail: tn, images },
         }

@@ -12,7 +12,9 @@ const CustomerList = () => {
   } = useQuery({
     queryKey: ["user", "detail"],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/user/get-all");
+      const { data } = await axios.get(
+        "https://e-com-repliq-fahimfaisalkhan.vercel.app/user/get-all"
+      );
 
       console.log(data);
       return data;
