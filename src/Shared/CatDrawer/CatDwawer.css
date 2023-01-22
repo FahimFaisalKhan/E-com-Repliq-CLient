@@ -1,0 +1,7 @@
+.drawer-toggle ~ .drawer-side {
+  max-height: fit-content;
+}
+.mymenu {
+  position: sticky;
+  top: 5rem;
+}

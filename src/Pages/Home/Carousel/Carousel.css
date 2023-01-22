@@ -1,0 +1,13 @@
+/* .my-swiper-slide {
+  height: 80vh !important;
+} */
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  margin-top: -5rem;
+  font-size: 1.5rem;
+}
+.phoneSwiper .swiper-button-next,
+.phoneSwiper .swiper-button-prev {
+  position: absolute !important;
+  top: 18rem;
+}
