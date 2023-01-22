@@ -2,10 +2,13 @@ import axios from "axios";
 import React, { useContext } from "react";
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 
 const SignUp = () => {
   const { signupUser, loggedin } = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,8 +16,11 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    await signupUser(data);
-
+    const success = await signupUser(data);
+    if (success) {
+      navigate("/", { replace: true });
+      toast.success("User created successfuly");
+    }
     console.log(loggedin);
   };
   return (

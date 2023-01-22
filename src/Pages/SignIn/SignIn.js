@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const SignIn = () => {
   const { signinUser, loggedin } = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,7 +18,10 @@ const SignIn = () => {
 
     const { email, password } = data;
 
-    await signinUser(email, password);
+    const success = await signinUser(email, password);
+    if (success) {
+      navigate("/", { replace: true });
+    }
     console.log(loggedin);
   };
   return (
@@ -80,11 +84,13 @@ const SignIn = () => {
             </p>
             <p className="inline-flex mr-5 sm:mr-0 justify-between font-semibold ">
               <span>Email:</span>{" "}
-              <span className="w-2/4 justify-self-start"></span>
+              <span className="w-8/4 justify-self-start">
+                admin.admin@email.com
+              </span>
             </p>
             <p className="inline-flex mr-5 sm:mr-0 justify-between font-semibold">
               <span>Password:</span>
-              <span className="w-2/4 justify-self-start"></span>
+              <span className="w-6/4 justify-self-start">789778</span>
             </p>
           </div>
         </div>

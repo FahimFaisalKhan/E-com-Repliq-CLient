@@ -1,6 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../../contexts/ProductsContext";
+
+import Spinner from "../../Shared/Spinner/Spinner";
 
 const Checkout = () => {
   const countries = ["China", "Russia", "UK"];
@@ -14,11 +16,26 @@ const Checkout = () => {
 
   const { id } = useParams();
 
-  const { cartItems } = useContext(ProductContext);
+  const { cartItems, products } = useContext(ProductContext);
+  const [checkoutProduct, setCheckoutProduct] = useState(null);
+  const [chkLoading, setChkLoading] = useState(true);
 
-  const { title, quantity, image, totalPrice } = cartItems?.find(
-    (i) => i._id === id
-  );
+  useEffect(() => {
+    const itemExistsinCart = cartItems?.find((i) => i.productId === id);
+
+    if (itemExistsinCart) {
+      setCheckoutProduct(itemExistsinCart);
+      setChkLoading(false);
+    } else {
+      console.log(products);
+      const prod = products.find((p) => p._id === id);
+      setCheckoutProduct(prod);
+      setChkLoading(false);
+    }
+  }, [cartItems, id, products]);
+  if (chkLoading) {
+    return <Spinner />;
+  }
   return (
     <div className="flex justify-center items-center">
       <div className="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
@@ -59,23 +76,34 @@ const Checkout = () => {
             </button>
             <div className="flex flex-col lg:flex-row  justify-between items-center w-full  space-y-4">
               <p className="text-xl md:text-3xl font-bold leading-normal text-primary-dark">
-                {title}
+                {checkoutProduct.title}
               </p>
               <div className="2xl:mr-96">
                 <p className="text-xl font-semibold leading-none text-gray-600">
-                  Number of items: {quantity}
+                  Number of items:{" "}
+                  {checkoutProduct.quantity ? checkoutProduct.quantity : 1}
                 </p>
                 <p className="text-xl md:text-2xl leading-normal text-primary-dark">
-                  Total price: ${totalPrice}
+                  Total price: $
+                  {checkoutProduct?.totalPrice
+                    ? checkoutProduct?.totalPrice
+                    : checkoutProduct?.price}
                 </p>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
-            <div className="xl:w-3/5 flex flex-col sm:flex-row xl:flex-col justify-center items-center bg-tertiary-dark py-7 sm:py-0 xl:py-10 px-10 xl:w-full">
+            <div className=" flex flex-col sm:flex-row xl:flex-col justify-center items-center bg-tertiary-dark py-7 sm:py-0 xl:py-10 px-10 xl:w-full">
               <div className="mt-6 sm:mt-0 xl:my-10 xl:px-20 w-52 sm:w-96 xl:w-auto">
-                <img src={image} alt="headphones" />
+                <img
+                  src={
+                    checkoutProduct.image
+                      ? checkoutProduct.image
+                      : checkoutProduct.thumbnail
+                  }
+                  alt="headphones"
+                />
               </div>
             </div>
 
@@ -217,7 +245,12 @@ const Checkout = () => {
 
               <button className="mt-8 border border-transparent hover:border-gray-300 bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded w-full">
                 <div>
-                  <p className="text-base leading-4">Pay ${totalPrice}</p>
+                  <p className="text-base leading-4">
+                    Pay ${" "}
+                    {checkoutProduct?.totalPrice
+                      ? checkoutProduct?.totalPrice
+                      : checkoutProduct?.price}
+                  </p>
                 </div>
               </button>
             </div>

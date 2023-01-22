@@ -12,7 +12,7 @@ const AdminRoute = ({ children }) => {
   }
 
   if (!userLoading && currentUser.role === "admin") return children;
-  toast("Please login as admin to access dashboard");
+  toast("Please login as admin to access dashboard", { duration: 1000 });
   return <Navigate to={"/signin"} />;
 };
 

@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 import { useContext } from "react";
 import { Avatar } from "react-daisyui";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../contexts/ProductsContext";
 import { UserContext } from "../../contexts/UserContext";
 const Navigation = () => {
   const { cartItems, setCartItems } = useContext(ProductContext);
   const { signoutUser, loggedin, currentUser, userLoading } =
     useContext(UserContext);
-
+  const navigate = useNavigate();
   return (
     <div className=" bg-primary fixed w-full z-50">
       <div className="navbar sm:px-16 ">
@@ -57,10 +57,14 @@ const Navigation = () => {
             {loggedin && currentUser?._id && (
               <>
                 <li
-                  onClick={() => {
-                    signoutUser(currentUser?._id);
+                  onClick={async () => {
+                    const success = signoutUser(currentUser?._id);
+                    if (success) {
+                    }
                     localStorage.removeItem("cartItems");
                     setCartItems([]);
+
+                    navigate("/", { replace: true });
                   }}
                 >
                   <Link>Sign out</Link>

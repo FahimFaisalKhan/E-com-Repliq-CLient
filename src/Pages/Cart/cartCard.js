@@ -66,7 +66,7 @@ const CartCard = ({ i, updating }) => {
         </div>
         <p>${totalPrice}</p>
         <Link
-          to={`/checkout/${i._id}`}
+          to={`/checkout/${i.productId}`}
           state={{
             title: i.title,
             quantity: i.quantity,

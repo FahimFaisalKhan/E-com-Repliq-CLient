@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { createContext, useCallback, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [userLoading, setUserLoading] = useState(true);
   const [loggedin, setLoggedin] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
   const fetch = useCallback(async (uid) => {
     setUserLoading(true);
     try {
@@ -21,6 +23,7 @@ const UserContextProvider = ({ children }) => {
       setCurrentUser({ ...rest });
       setLoggedin(true);
       setUserLoading(false);
+      return true;
     } catch (err) {
       setUserLoading(false);
     }
@@ -43,9 +46,13 @@ const UserContextProvider = ({ children }) => {
       setLoggedin(true);
       localStorage.setItem("accessToken", res.data.token);
       localStorage.setItem("uid", res.data.user._id);
-      await fetch(res.data.user._id);
+      const success = await fetch(res.data.user._id);
+      if (success) {
+        return true;
+      }
     } else {
       console.log(res.data.error);
+      toast.error(res.data.error, { duration: 1500 });
     }
   };
 
@@ -62,9 +69,14 @@ const UserContextProvider = ({ children }) => {
     if (data.success) {
       localStorage.setItem("accessToken", data.token);
       localStorage.setItem("uid", data.user._id);
-      await fetch(data.user._id);
+      const success = await fetch(data.user._id);
+      if (success) {
+        return true;
+      }
     } else {
       console.log(data.error);
+
+      toast.error(data.error, { duration: 1500 });
     }
   };
 
@@ -80,6 +92,7 @@ const UserContextProvider = ({ children }) => {
       localStorage.removeItem("uid");
       setCurrentUser({});
       setLoggedin(false);
+      return true;
     }
     setUserLoading(false);
   };

@@ -1,14 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "react-daisyui";
+import { toast } from "react-hot-toast";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { ProductContext } from "../../contexts/ProductsContext";
+import { UserContext } from "../../contexts/UserContext";
 import ProductRating from "../../Shared/ProductRating/ProductRating";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { currentUser } = useContext(UserContext);
+  const { addToCart } = useContext(ProductContext);
   const {
     isLoading: productDetailLoading,
     refetch: productDetailRefetch,
@@ -23,6 +28,23 @@ const ProductDetail = () => {
       return data;
     },
   });
+  const handleAddToCart = async (product) => {
+    const { title, thumbnail, stock, _id, price } = product;
+    if (currentUser?._id) {
+      addToCart({
+        title,
+        image: thumbnail,
+        stock,
+        productId: _id,
+        price,
+        totalPrice: price,
+        uid: currentUser?._id,
+        loggedin: true,
+      });
+    } else {
+      toast("PLease login to add to cart", { duration: 1000 });
+    }
+  };
 
   if (productDetailLoading) {
     return <Spinner />;
@@ -89,12 +111,19 @@ const ProductDetail = () => {
           </div>
 
           <div className="flex gap-x-8 py-2">
-            <Button size="md " color="secondary" className="capitalize">
+            <Button
+              onClick={() => handleAddToCart(productDetailData)}
+              size="md "
+              color="secondary"
+              className="capitalize"
+            >
               Add to cart
             </Button>
-            <Button color="primary" className="capitalize">
-              Purchase
-            </Button>
+            <Link to={`/checkout/${productDetailData._id}`}>
+              <Button color="primary" className="capitalize">
+                Purchase
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

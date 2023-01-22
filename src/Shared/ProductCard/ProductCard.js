@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
         loggedin: true,
       });
     } else {
-      toast("PLease login to add to cart");
+      toast("PLease login to add to cart", { duration: 1000 });
     }
   };
 
@@ -72,7 +72,7 @@ const ProductCard = ({ product }) => {
           </button>
         </Link>
       </div>
-      <Link>
+      <Link to={`/checkout/${_id}`}>
         <Button
           color="secondary"
           className="capitalize"
