@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { Avatar } from "react-daisyui";
 import { FaShoppingCart } from "react-icons/fa";
@@ -6,10 +7,10 @@ import { Link } from "react-router-dom";
 import { ProductContext } from "../../contexts/ProductsContext";
 import { UserContext } from "../../contexts/UserContext";
 const Navigation = () => {
-  const { cartItems } = useContext(ProductContext);
+  const { cartItems, setCartItems } = useContext(ProductContext);
   const { signoutUser, loggedin, currentUser, userLoading } =
     useContext(UserContext);
-  console.log(userLoading);
+
   return (
     <div className=" bg-primary fixed w-full z-50">
       <div className="navbar sm:px-16 ">
@@ -55,7 +56,13 @@ const Navigation = () => {
             )}
             {loggedin && currentUser?._id && (
               <>
-                <li onClick={() => signoutUser(currentUser?._id)}>
+                <li
+                  onClick={() => {
+                    signoutUser(currentUser?._id);
+                    localStorage.removeItem("cartItems");
+                    setCartItems([]);
+                  }}
+                >
                   <Link>Sign out</Link>
                 </li>
                 <li>
@@ -63,6 +70,9 @@ const Navigation = () => {
                 </li>
               </>
             )}
+            <li>
+              <Link to={"/dashboard"}>Dashboard</Link>
+            </li>
           </ul>
         </div>
         <div className="navbar-end gap-x-5">

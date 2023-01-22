@@ -1,15 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const ProductContext = createContext();
 const ProductsContextProvider = ({ children }) => {
   const localCart = JSON.parse(localStorage.getItem("cartItems"));
   const [cartItems, setCartItems] = useState(localCart ? [...localCart] : []);
 
+  const { currentUser } = useContext(UserContext);
+  useEffect(() => {
+    const getCartItems = async () => {
+      console.log("lalala", currentUser._id);
+      if (currentUser._id) {
+        const { data } = await axios.get(
+          `http://localhost:5000/cart/get-items?uid=${currentUser?._id}`
+        );
+
+        setCartItems([...data]);
+        localStorage.setItem("cartItems", JSON.stringify([...data]));
+      }
+    };
+    getCartItems();
+  }, [currentUser]);
   const {
     isLoading: productsLoading,
     data: products,

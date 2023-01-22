@@ -1,0 +1,9 @@
+:where(.table *:first-child) :where(*:first-child) :where(th, td):first-child,
+:where(.table *:first-child) :where(*:first-child) :where(th, td):last-child,
+:where(.table *:last-child) :where(*:last-child) :where(th, td):first-child,
+:where(.table *:last-child) :where(*:last-child) :where(th, td):last-child {
+  border-radius: 0;
+}
+.table :where(tbody th, tbody td) {
+  background-color: #52b788;
+}

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ProductContext } from "../../contexts/ProductsContext";
 
 const Checkout = () => {
@@ -11,18 +11,14 @@ const Checkout = () => {
     setMenu(false);
     setCountry(e.target.textContent);
   };
-  const location = useLocation();
 
-  const { title, quantity, image, totalPrice } = location?.state;
-  console.log();
   const { id } = useParams();
 
   const { cartItems } = useContext(ProductContext);
-  console.log(cartItems);
 
-  //   const { title, quantity, image, totalPrice } = cartItems?.find(
-  //     (i) => i._id === id
-  //   );
+  const { title, quantity, image, totalPrice } = cartItems?.find(
+    (i) => i._id === id
+  );
   return (
     <div className="flex justify-center items-center">
       <div className="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">

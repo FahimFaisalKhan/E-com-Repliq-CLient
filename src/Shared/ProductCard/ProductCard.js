@@ -6,6 +6,8 @@ import { BsCartPlus } from "react-icons/bs";
 import { Button } from "react-daisyui";
 import { useContext } from "react";
 import { ProductContext } from "../../contexts/ProductsContext";
+import { UserContext } from "../../contexts/UserContext";
+import { toast } from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
   const {
@@ -20,6 +22,25 @@ const ProductCard = ({ product }) => {
     _id,
   } = product;
   const { addToCart } = useContext(ProductContext);
+  const { currentUser } = useContext(UserContext);
+
+  const handleAddToCart = async () => {
+    if (currentUser?._id) {
+      addToCart({
+        title,
+        image: thumbnail,
+        stock,
+        productId: _id,
+        price,
+        totalPrice: price,
+        uid: currentUser?._id,
+        loggedin: true,
+      });
+    } else {
+      toast("PLease login to add to cart");
+    }
+  };
+
   return (
     <div className="text-primary  h-[30rem] border-2 p-3 border-secondary flex flex-col hover:scale-[1.01] transition-all">
       <div className="h-[37%] max-h-[37%] flex justify-center bg-primary-dark">
@@ -46,19 +67,7 @@ const ProductCard = ({ product }) => {
       <div className="flex justify-between mb-4">
         <p className="text-xl mt-1">${price}</p>
         <Link>
-          <button
-            className="z-50"
-            onClick={() =>
-              addToCart({
-                title,
-                image: thumbnail,
-                stock,
-                productId: _id,
-                price,
-                totalPrice: price,
-              })
-            }
-          >
+          <button className="z-50" onClick={handleAddToCart}>
             <BsCartPlus size={22} />
           </button>
         </Link>

@@ -6,7 +6,8 @@ import { Avatar, Button } from "react-daisyui";
 import { Link } from "react-router-dom";
 import { ProductContext } from "../../contexts/ProductsContext";
 
-const CartCard = ({ i }) => {
+const CartCard = ({ i, updating }) => {
+  console.log(updating);
   const { deleteFromCart } = useContext(ProductContext);
   const [qty, setQty] = useState(i.quantity);
   const [totalPrice, setTotalPrice] = useState(i.totalPrice);
@@ -14,7 +15,7 @@ const CartCard = ({ i }) => {
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
 
-    cartItems.map((item) => {
+    cartItems?.map((item) => {
       if (item._id === i._id) {
         item.quantity = qty;
         item.totalPrice = totalPrice;
@@ -24,7 +25,7 @@ const CartCard = ({ i }) => {
 
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [qty, i._id]);
-  console.log(i.stock);
+
   return (
     <div key={i._id} className="border-2 border-secondary-light     flex p-3">
       <Avatar src={i.image} />
@@ -70,7 +71,12 @@ const CartCard = ({ i }) => {
             image: i.image,
           }}
         >
-          <Button className="capitalize" color="secondary" size="sm">
+          <Button
+            disabled={updating}
+            className="capitalize"
+            color="secondary"
+            size="sm"
+          >
             Checkout
           </Button>
         </Link>

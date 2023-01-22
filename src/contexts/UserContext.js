@@ -8,21 +8,30 @@ const UserContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   const fetch = useCallback(async (uid) => {
     setUserLoading(true);
-    const { data } = await axios.put("http://localhost:5000/user/update-user", {
-      uid: uid,
-      loggedin: true,
-    });
+    try {
+      const { data } = await axios.put(
+        "http://localhost:5000/user/update-user",
+        {
+          uid: uid,
+          loggedin: true,
+        }
+      );
 
-    console.log(data);
-    const { password, ...rest } = data.user;
-    setCurrentUser({ ...rest });
-    setLoggedin(true);
-    setUserLoading(false);
+      console.log(data);
+      const { password, ...rest } = data.user;
+      setCurrentUser({ ...rest });
+      setLoggedin(true);
+      setUserLoading(false);
+    } catch (err) {
+      setUserLoading(false);
+    }
   }, []);
   useEffect(() => {
     const cUserId = localStorage.getItem("uid");
     const cleacup = async () => {
-      await fetch(cUserId);
+      if (cUserId) {
+        await fetch(cUserId);
+      }
     };
 
     return () => cleacup();
@@ -39,6 +48,11 @@ const UserContextProvider = ({ children }) => {
     } else {
       console.log(res.data.error);
     }
+  };
+
+  const addUser = async (data) => {
+    const res = await axios.post("http://localhost:5000/user/signup", data);
+    console.log(res.data);
   };
 
   const signinUser = async (email, password) => {
@@ -63,16 +77,14 @@ const UserContextProvider = ({ children }) => {
 
     console.log(data);
     if (data.success) {
-      localStorage.removeItem("accesstoken");
+      localStorage.removeItem("accessToken");
       localStorage.removeItem("uid");
       setCurrentUser({});
       setLoggedin(false);
-      setUserLoading(false);
     }
+    setUserLoading(false);
   };
-  useEffect(() => {
-    console.log(currentUser, loggedin);
-  }, [currentUser, loggedin]);
+
   return (
     <UserContext.Provider
       value={{
@@ -82,6 +94,7 @@ const UserContextProvider = ({ children }) => {
         signoutUser,
         currentUser,
         userLoading,
+        addUser,
       }}
     >
       {children}

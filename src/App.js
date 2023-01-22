@@ -3,6 +3,7 @@ import "./App.css";
 import { Button } from "react-daisyui";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routes/router";
+import { Toaster } from "react-hot-toast";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ProductsContextProvider from "./contexts/ProductsContext";
@@ -15,6 +16,7 @@ function App() {
         <UserContextProvider>
           <ProductsContextProvider>
             <RouterProvider router={router} />
+            <Toaster />
           </ProductsContextProvider>
         </UserContextProvider>
       </QueryClientProvider>
