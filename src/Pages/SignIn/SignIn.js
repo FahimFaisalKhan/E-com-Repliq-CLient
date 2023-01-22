@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const SignIn = () => {
+  const { signinUser, loggedin } = useContext(UserContext);
   const {
     register,
     handleSubmit,
 
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+
+    const { email, password } = data;
+
+    await signinUser(email, password);
+    console.log(loggedin);
   };
   return (
-    <div className="w-full ">
+    <div className="w-full text-primary">
       <div className="hero min-h-[80vh] bg-tertiary-light">
         <div className="hero-content flex flex-col  items-center   w-full sm:items-start xl:items-center relative ">
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-tertiary-dark py-5 ">

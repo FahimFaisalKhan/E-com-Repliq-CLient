@@ -4,9 +4,12 @@ import { Avatar } from "react-daisyui";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ProductContext } from "../../contexts/ProductsContext";
+import { UserContext } from "../../contexts/UserContext";
 const Navigation = () => {
   const { cartItems } = useContext(ProductContext);
-  console.log(cartItems);
+  const { signoutUser, loggedin, currentUser, userLoading } =
+    useContext(UserContext);
+  console.log(userLoading);
   return (
     <div className=" bg-primary fixed w-full z-50">
       <div className="navbar sm:px-16 ">
@@ -40,16 +43,26 @@ const Navigation = () => {
             <li>
               <Link to={"/"}>Home</Link>
             </li>
-
-            <li>
-              <Link to={"/signin"}>Sign in</Link>
-            </li>
-            <li>
-              <Link to={"/signUP"}>Sign up</Link>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            {!loggedin && (
+              <>
+                <li>
+                  <Link to={"/signin"}>Sign in</Link>
+                </li>
+                <li>
+                  <Link to={"/signup"}>Sign up</Link>
+                </li>
+              </>
+            )}
+            {loggedin && currentUser?._id && (
+              <>
+                <li onClick={() => signoutUser(currentUser?._id)}>
+                  <Link>Sign out</Link>
+                </li>
+                <li>
+                  <Link>{currentUser.name}</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <div className="navbar-end gap-x-5">

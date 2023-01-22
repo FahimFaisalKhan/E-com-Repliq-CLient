@@ -6,14 +6,17 @@ import { router } from "./Routes/router";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ProductsContextProvider from "./contexts/ProductsContext";
+import UserContextProvider from "./contexts/UserContext";
 const queryClient = new QueryClient();
 function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ProductsContextProvider>
-          <RouterProvider router={router} />
-        </ProductsContextProvider>
+        <UserContextProvider>
+          <ProductsContextProvider>
+            <RouterProvider router={router} />
+          </ProductsContextProvider>
+        </UserContextProvider>
       </QueryClientProvider>
     </>
   );

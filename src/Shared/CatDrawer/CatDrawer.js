@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { ProductContext } from "../../contexts/ProductsContext";
+import { UserContext } from "../../contexts/UserContext";
 import Spinner from "../Spinner/Spinner";
 
 import "./CatDwawer.css";
 const CatDrawer = ({ children }) => {
   const { productsLoading, catLoading, categories } =
     useContext(ProductContext);
-
-  if (productsLoading || catLoading) {
+  const { userLoading } = useContext(UserContext);
+  if (productsLoading || catLoading || userLoading) {
     return <Spinner />;
   }
   return (

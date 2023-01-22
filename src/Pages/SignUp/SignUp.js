@@ -1,19 +1,24 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../contexts/UserContext";
 
 const SignUp = () => {
+  const { signupUser, loggedin } = useContext(UserContext);
   const {
     register,
     handleSubmit,
 
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    await signupUser(data);
+
+    console.log(loggedin);
   };
   return (
-    <div className="w-full ">
+    <div className="w-full text-primary">
       <div className="hero min-h-[80vh] bg-tertiary-light">
         <div className="hero-content flex flex-col  items-center   w-full sm:items-start xl:items-center relative ">
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-tertiary-dark py-5 ">
@@ -56,7 +61,7 @@ const SignUp = () => {
                 </label>
                 <div className="flex">
                   <select className="select  max-w-xs bg-primary rounded-r-none w-[24%] pr-0 label-text ">
-                    <option>+88</option>
+                    <option defaultValue={"+88"}>+88</option>
                   </select>
                   <input
                     type="text"
@@ -96,7 +101,7 @@ const SignUp = () => {
               <div className="form-control mt-6">
                 <button
                   type="submit"
-                  className="btn bg-primary-dark relative text-base-100"
+                  className="btn bg-primary-dark border-primary-dark relative text-base-100"
                 >
                   Register
                 </button>
