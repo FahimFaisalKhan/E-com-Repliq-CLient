@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { ProductContext } from "../../contexts/ProductsContext";
 import { UserContext } from "../../contexts/UserContext";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const SignIn = () => {
   const { signinUser, loggedin } = useContext(UserContext);
+  const { getCartItems } = useContext(ProductContext);
   const navigate = useNavigate();
   const {
     register,
@@ -20,6 +22,8 @@ const SignIn = () => {
 
     const success = await signinUser(email, password);
     if (success) {
+      console.log("succeeddeeed");
+
       navigate("/", { replace: true });
     }
     console.log(loggedin);

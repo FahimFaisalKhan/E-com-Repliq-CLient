@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
@@ -11,21 +11,26 @@ const ProductsContextProvider = ({ children }) => {
   const localCart = JSON.parse(localStorage.getItem("cartItems"));
   const [cartItems, setCartItems] = useState(localCart ? [...localCart] : []);
 
-  const { currentUser } = useContext(UserContext);
-  useEffect(() => {
-    const getCartItems = async () => {
-      console.log("lalala", currentUser._id);
-      if (currentUser._id) {
-        const { data } = await axios.get(
-          `https://e-com-repliq-fahimfaisalkhan.vercel.app/cart/get-items?uid=${currentUser?._id}`
-        );
+  const { currentUser, userLoading } = useContext(UserContext);
 
-        setCartItems([...data]);
-        localStorage.setItem("cartItems", JSON.stringify([...data]));
-      }
-    };
+  const getCartItems = useCallback(async () => {
+    console.log("lalala", currentUser._id);
+    console.log("succeeddeeed 2");
+    console.log(userLoading, currentUser);
+    if (!userLoading && currentUser._id) {
+      console.log("succeeddeeed 3");
+
+      const { data } = await axios.get(
+        `https://e-com-repliq-fahimfaisalkhan.vercel.app/cart/get-items?uid=${currentUser?._id}`
+      );
+
+      setCartItems([...data]);
+      localStorage.setItem("cartItems", JSON.stringify([...data]));
+    }
+  }, [currentUser, userLoading]);
+  useEffect(() => {
     getCartItems();
-  }, [currentUser]);
+  }, [getCartItems]);
   const {
     isLoading: productsLoading,
     data: products,
@@ -154,6 +159,7 @@ const ProductsContextProvider = ({ children }) => {
         setCartItems,
         compareAndUpdate,
         deleteFromCart,
+        getCartItems,
       }}
     >
       {children}

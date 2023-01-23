@@ -9,6 +9,7 @@ import { UserContext } from "../../contexts/UserContext";
 const Navigation = () => {
   const { cartItems, setCartItems } = useContext(ProductContext);
   const { signoutUser, loggedin, currentUser } = useContext(UserContext);
+  console.log(loggedin, currentUser);
   const navigate = useNavigate();
   return (
     <div className=" bg-primary fixed w-full z-50">
@@ -62,7 +63,7 @@ const Navigation = () => {
                     const success = signoutUser(currentUser?._id);
                     if (success) {
                     }
-                    localStorage.removeItem("cartItems");
+
                     setCartItems([]);
 
                     navigate("/", { replace: true });
@@ -70,11 +71,11 @@ const Navigation = () => {
                 >
                   <Link>Sign out</Link>
                 </li>
+                <li>
+                  <Link to={"/dashboard"}>Dashboard</Link>
+                </li>
               </>
             )}
-            <li>
-              <Link to={"/dashboard"}>Dashboard</Link>
-            </li>
           </ul>
         </div>
         <div className="navbar-end gap-x-5">

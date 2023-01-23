@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
@@ -11,7 +11,9 @@ const AdminRoute = ({ children }) => {
     return <Spinner />;
   }
 
-  if (!userLoading && currentUser.role === "admin") return children;
+  if (!userLoading && currentUser.role === "admin") {
+    return children;
+  }
   toast("Please login as admin to access dashboard", { duration: 1000 });
   return <Navigate to={"/signin"} />;
 };

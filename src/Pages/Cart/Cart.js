@@ -25,9 +25,12 @@ const Cart = () => {
   }, [setCartItems]);
   return (
     <div className="container mx-auto  min-h-[80vh] my-8 text-primary flex flex-col gap-y-5 justify-center">
-      {cartItems.map((i) => (
-        <CartCard key={i._id} i={i} updating={updating} />
-      ))}
+      {cartItems.length ? (
+        cartItems.map((i) => <CartCard key={i._id} i={i} updating={updating} />)
+      ) : (
+        <h1 className="text-3xl text-center">No Items in cart</h1>
+      )}
+      {}
     </div>
   );
 };
