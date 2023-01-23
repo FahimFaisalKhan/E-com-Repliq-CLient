@@ -26,7 +26,7 @@
 
 #### swiper
 
-### Yuy can find
+### You can find
 
 ## Liver website : https://ok-buy-e-com-repliq.netlify.app/
 
